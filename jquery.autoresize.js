@@ -12,16 +12,16 @@ jQuery.fn.autoResize = function(options) {
         handResizing: true
     }, options);
     
-    this.filter('textarea').each(function(){
+    this.filter('textarea').each(function() {
 
-        curObj = this,
+        var curObj = this,
 
         textarea = (function() {
 
-        if(settings.handResizing == true)
-            return $(curObj).css({'overflow-y': 'hidden'});
-        else
-            return $(curObj).css({resize:'none', 'overflow-y': 'hidden'});
+            if(settings.handResizing == true)
+                return $(curObj).css({'overflow-y': 'hidden'});
+            else
+                return $(curObj).css({resize:'none', 'overflow-y': 'hidden'});
 
         })(),
 
