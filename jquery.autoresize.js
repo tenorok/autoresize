@@ -1,3 +1,5 @@
+// Copyright 2012, Артём Курбатов [tenorok.ru] | MIT License
+
 jQuery.fn.autoResize = function(options) {
 
     var settings = $.extend({
@@ -11,18 +13,18 @@ jQuery.fn.autoResize = function(options) {
     }, options);
     
     this.filter('textarea').each(function(){
-			
-		curObj = this,
 
-		textarea = (function() {
-			
-			if(settings.handResizing == true)
-				return $(curObj).css({'overflow-y': 'hidden'});
-			else
-				return $(curObj).css({resize:'none', 'overflow-y': 'hidden'});
-			
-		})(),
-		
+        curObj = this,
+
+        textarea = (function() {
+
+        if(settings.handResizing == true)
+            return $(curObj).css({'overflow-y': 'hidden'});
+        else
+            return $(curObj).css({resize:'none', 'overflow-y': 'hidden'});
+
+        })(),
+
         // Сохранение оригинальной высоты
         origHeight = textarea.height(),
 
@@ -42,27 +44,26 @@ jQuery.fn.autoResize = function(options) {
                 top: 0,
                 left: -9999
             }).css(propOb).attr('tabIndex', '-1').insertAfter('body');
-			
         })(),
 
         updateSize = function() {
             
             // Подготовка клона
             clone.height(0).val($(this).val()).scrollTop(10000);
-			
+
             // Вычисление высоты текста
             var scrollTop = Math.max(clone.scrollTop(), origHeight) + settings.paddingBottom,
                 toChange  = $(this).add(clone);
-			
+
             // Проверка лимита
-            if (scrollTop >= settings.maxHeight) {
+            if(scrollTop >= settings.maxHeight) {
                 
                 $(this).css('overflow-y', '');
                 return;
             }
             
             settings.onResize.call(this);
-			
+
             settings.animate && textarea.css('display') === 'block' ?
                 toChange.stop().animate({height:scrollTop}, settings.animateDuration, settings.animateCallback):
                 toChange.height(scrollTop);
